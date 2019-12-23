@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="todo"
+            type="br.omegafranco.android.todo.data.Todo"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTodo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:elevation="3dp">
+<!--             card_view:cardBackgroundColor="#e4bfef"
+            card_view:cardCornerRadius="1dp" -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:text="@{todo.body}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    bind:layout_constraintEnd_toEndOf="parent"
+                    bind:layout_constraintStart_toStartOf="parent"
+                    bind:layout_constraintTop_toTopOf="parent"
+                    tools:text="Um todo a ser realizado" />
+
+                <TextView
+                    android:id="@+id/textCreatedAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBody"
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp"
+                    android:text="@{@string/created_at(@string/date_format(todo.createdAt))}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    bind:layout_constraintStart_toStartOf="parent"
+                    bind:layout_constraintTop_toBottomOf="@+id/textBody"
+                    bind:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="23/12/2019"
+                    />
+
+                <TextView
+                    android:id="@+id/textDueAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBody"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:text="@{@string/due_at(@string/date_format(todo.dueAt))}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    bind:layout_constraintTop_toBottomOf="@+id/textBody"
+                    bind:layout_constraintEnd_toEndOf="parent"
+                    bind:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="23/12/2019"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Tools {
@@ -17,6 +19,7 @@ public class Tools {
     private Gson gson;
     private RequestQueue requestQueue;
     private Application application;
+    private SimpleDateFormat dateFormat;
 
     private Tools(){}
 
@@ -54,5 +57,12 @@ public class Tools {
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        if (dateFormat == null) {
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        }
+        return dateFormat;
     }
 }

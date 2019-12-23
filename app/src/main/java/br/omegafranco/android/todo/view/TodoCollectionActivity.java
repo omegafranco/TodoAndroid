@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ public class TodoCollectionActivity extends AppCompatActivity {
     private static final String tag = TodoCollectionActivity.class.getSimpleName();
 
     TodoCollectionViewModel todoCollectionViewModel;
+    TodoRecyclerViewAdapter todoRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,15 @@ public class TodoCollectionActivity extends AppCompatActivity {
         binding.setTodoCollectionViewModel(todoCollectionViewModel);
         binding.setLifecycleOwner(this);
 
+        // bind RecyclerView
+        RecyclerView recyclerView = binding.viewTodos;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        todoRecyclerViewAdapter = new TodoRecyclerViewAdapter();
+        recyclerView.setAdapter(todoRecyclerViewAdapter);
+
         binding.getTodoCollectionViewModel().getTodos().observe(this, todos -> {
-            Log.d(tag, "recebi resultado");
-            for(Todo todo: todos) {
-                Log.d(tag, todo.getBody());
-            }
+            todoRecyclerViewAdapter.setTodos(todos);
         });
     }
 }
