@@ -38,16 +38,16 @@ public class TodoDatasource {
 
     public LiveData<Result> getTodos() {
         MutableLiveData<Result> resultLiveData = new MutableLiveData<>();
-        String url = String.format(Locale.getDefault(),"%s/tools",baseUrl);
+        String url = String.format(Locale.getDefault(),"%s/todo",baseUrl);
         Type listType = new TypeToken<List<Todo>>(){}.getType();
         GsonRequest<List<Todo>> todoGsonRequest = new GsonRequest<>(url, listType, null, todosResponse -> {
             List<Todo> todos = todosResponse;
             resultLiveData.setValue(new Result.Success<>(todos));
         }, error -> {
-            Log.d(tag, "ERROR " + error.getMessage());
+            Log.d(tag, "ERROR " + error.toString());
             resultLiveData.setValue(new Result.Error(error));
         });
-        int socketTimeout = 120000;
+        int socketTimeout = 10000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         todoGsonRequest.setRetryPolicy(policy);
         requestQueue.add(todoGsonRequest);

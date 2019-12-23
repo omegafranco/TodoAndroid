@@ -1,5 +1,7 @@
 package br.omegafranco.android.todo.data;
 
+import androidx.lifecycle.LiveData;
+
 public class TodoRepository {
     private static final String tag = TodoDatasource.class.getSimpleName();
 
@@ -14,5 +16,9 @@ public class TodoRepository {
             instance = new TodoRepository(todoDatasource);
         }
         return instance;
+    }
+
+    public LiveData<Result> getTodos() {
+        return todoDatasource.getTodos();
     }
 }
