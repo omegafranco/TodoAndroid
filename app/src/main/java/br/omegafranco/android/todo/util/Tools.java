@@ -19,6 +19,7 @@ public class Tools {
     private Gson gson;
     private RequestQueue requestQueue;
     private Application application;
+    private RoomDatabase roomDatabase;
     private SimpleDateFormat dateFormat;
 
     private Tools(){}
@@ -64,5 +65,13 @@ public class Tools {
             dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         }
         return dateFormat;
+    }
+
+    public RoomDatabase getRoomDatabase() {
+        return roomDatabase;
+    }
+
+    public void setRoomDatabase(RoomDatabase roomDatabase) {
+        this.roomDatabase = roomDatabase;
     }
 }

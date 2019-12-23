@@ -1,13 +1,28 @@
 package br.omegafranco.android.todo.data;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "todo")
 public class Todo {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private Integer id;
+
+    @ColumnInfo(name = "body")
     private String body;
+
+    @ColumnInfo(name = "color")
     private String color;
+
+    @ColumnInfo(name = "createdAt")
     private Date createdAt;
+
+    @ColumnInfo(name = "dueAt")
     private Date dueAt;
 
     public Todo(Integer id, String body, String color, Date createdAt, Date dueAt) {
@@ -58,4 +73,5 @@ public class Todo {
         this.dueAt = dueAt;
 
     }
+
 }
