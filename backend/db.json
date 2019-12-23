@@ -1,0 +1,6 @@
+{
+  "todo": [
+    { "id": 1, "body": "Meu primeiro todo", "color": "green", "createdAt" :1577105384074, "dueAt" : 1577200000000 },
+	{ "id": 2, "body": "Meu segundo todo", "color": "red", "createdAt" :1577105384074, "dueAt" : 1577200000000 }
+  ]
+}
