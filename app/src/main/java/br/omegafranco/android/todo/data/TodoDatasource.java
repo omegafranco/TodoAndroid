@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Locale;
 
 import br.omegafranco.android.todo.BuildConfig;
-import br.omegafranco.android.todo.util.GsonRequest;
+import br.omegafranco.android.todo.util.GsonGetRequest;
+import br.omegafranco.android.todo.util.GsonPostRequest;
 import br.omegafranco.android.todo.util.Tools;
 
 
@@ -40,7 +41,7 @@ public class TodoDatasource {
         MutableLiveData<Result> resultLiveData = new MutableLiveData<>();
         String url = String.format(Locale.getDefault(),"%s/todo",baseUrl);
         Type listType = new TypeToken<List<Todo>>(){}.getType();
-        GsonRequest<List<Todo>> todoGsonRequest = new GsonRequest<>(url, listType, null, todosResponse -> {
+        GsonGetRequest<List<Todo>> todoGsonGetRequest = new GsonGetRequest<>(url, listType, null, todosResponse -> {
             List<Todo> todos = todosResponse;
             resultLiveData.setValue(new Result.Success<>(todos));
         }, error -> {
@@ -49,8 +50,26 @@ public class TodoDatasource {
         });
         int socketTimeout = 10000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        todoGsonRequest.setRetryPolicy(policy);
-        requestQueue.add(todoGsonRequest);
+        todoGsonGetRequest.setRetryPolicy(policy);
+        requestQueue.add(todoGsonGetRequest);
+        return resultLiveData;
+    }
+
+    public LiveData<Result> postTodo(Todo todo) {
+        MutableLiveData<Result> resultLiveData = new MutableLiveData<>();
+        String url = String.format(Locale.getDefault(),"%s/todo",baseUrl);
+        Type todoType = new TypeToken<Todo>(){}.getType();
+        String body = Tools.getInstance().getGson().toJson(todo);
+        GsonPostRequest<Todo> todoGsonPostRequest = new GsonPostRequest<>(url, body, todoType, null, response -> {
+            resultLiveData.setValue(new Result.Success<>(response));
+        }, error -> {
+            Log.d(tag, "ERROR " + error.toString());
+            resultLiveData.setValue(new Result.Error(error));
+        });
+        int socketTimeout = 10000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        todoGsonPostRequest.setRetryPolicy(policy);
+        requestQueue.add(todoGsonPostRequest);
         return resultLiveData;
     }
 }

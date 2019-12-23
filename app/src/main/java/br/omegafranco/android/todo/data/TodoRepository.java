@@ -21,4 +21,8 @@ public class TodoRepository {
     public LiveData<Result> getTodos() {
         return todoDatasource.getTodos();
     }
+
+    public LiveData<Result> postTodo(Todo todo) {
+        return todoDatasource.postTodo(todo);
+    }
 }

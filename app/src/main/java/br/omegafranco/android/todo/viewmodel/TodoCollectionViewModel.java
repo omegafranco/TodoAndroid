@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.omegafranco.android.todo.data.Result;
@@ -34,5 +35,10 @@ public class TodoCollectionViewModel extends ViewModel {
 
     public LiveData<List<Todo>> getTodos() {
         return todos;
+    }
+
+    public void postTodo() {
+        Todo todo = new Todo(8, "Meu oitavo todo", "black", new Date(), new Date());
+        todoRepository.postTodo(todo);
     }
 }

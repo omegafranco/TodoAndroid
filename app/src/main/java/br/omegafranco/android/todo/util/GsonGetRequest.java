@@ -15,7 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-public class GsonRequest<T> extends Request<T> {
+public class GsonGetRequest<T> extends Request<T> {
     private final Gson gson = Tools.getInstance().getGson();
     private final Type type;
     private final Map<String, String> headers;
@@ -28,8 +28,8 @@ public class GsonRequest<T> extends Request<T> {
      * @param type new TypeToken<DummyObject>(){}.getType()
      * @param headers Map of request headers
      */
-    public GsonRequest(String url, Type type, Map<String, String> headers,
-                       Listener<T> listener, ErrorListener errorListener) {
+    public GsonGetRequest(String url, Type type, Map<String, String> headers,
+                          Listener<T> listener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.type = type;
         this.headers = headers;
