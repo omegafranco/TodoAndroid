@@ -13,16 +13,16 @@ import java.util.List;
 public interface TodoDao {
 
     @Insert
-    void insert(Todo todo);
+    Long insert(Todo todo);
 
     @Insert
     List<Long> insert(List<Todo> todos);
 
     @Update
-    void update(Todo todo);
+    Integer update(Todo todo);
 
     @Delete
-    void delete(Todo todo);
+    Integer delete(Todo todo);
 
     @Query("SELECT * FROM todo")
     LiveData<List<Todo>> getTodos();
