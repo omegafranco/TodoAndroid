@@ -39,6 +39,6 @@ public class TodoCollectionViewModel extends ViewModel {
 
     public void postTodo() {
         Todo todo = new Todo(8, "Meu oitavo todo", "black", new Date(), new Date());
-        todoRepository.postTodo(todo);
+        todoRepository.insertTodo(todo);
     }
 }

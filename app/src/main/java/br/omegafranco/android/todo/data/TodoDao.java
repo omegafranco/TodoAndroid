@@ -9,24 +9,29 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+
 @Dao
 public interface TodoDao {
 
     @Insert
-    Long insert(Todo todo);
+    Maybe<Long> insert(Todo todo);
 
     @Insert
-    List<Long> insert(List<Todo> todos);
+    Completable insert(List<Todo> todos);
 
     @Update
-    Integer update(Todo todo);
+    Single<Integer> update(Todo todo);
 
     @Delete
-    Integer delete(Todo todo);
+    Single<Integer> delete(Todo todo);
 
     @Query("SELECT * FROM todo")
-    LiveData<List<Todo>> getTodos();
+    Flowable<List<Todo>> getTodos();
 
     @Query("SELECT * FROM todo WHERE id=:id")
-    LiveData<Todo> getTodo(Integer id);
+    Flowable<Todo> getTodo(Integer id);
 }
